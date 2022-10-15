@@ -7,8 +7,12 @@ require('./db');
 
 const app = express();
 
+// configurações
+const config = require('./config');
+config(app);
+// require('./config')(app); // mesma coisa q as 2 linhas de cima
+
 // middlewares
-app.use(express.json());
 
 // rotas
 // const projectRoutes = require('./routes/project.routes')

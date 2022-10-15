@@ -53,4 +53,21 @@ router.get('/:projectId', async (req, res, next) => {
   }
 });
 
+// edita um projeto específico
+router.put('/:projectId', async (req, res, next) => {
+  const { projectId } = req.params;
+  try {
+    if (!mongoose.Types.ObjectId.isValid(projectId)) {
+      const error = new Error('Specified ID is not valid.');
+      error.status = 400;
+      throw error; 
+    }
+    const projectFromDB = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
+    res.status(200).json(projectFromDB);
+  } catch (error) {
+    console.error('Error trying to get a project.', error);
+    res.status(error.status || 500).json(error.message || error);
+  }
+})
+
 module.exports = router;

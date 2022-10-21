@@ -16,9 +16,8 @@ config(app);
 
 // rotas
 // const projectRoutes = require('./routes/project.routes')
+app.use('/auth', require('./routes/auth.routes')) // autenticação
 app.use('/projects', require('./routes/project.routes')); // projetos
 app.use('/tasks', require('./routes/task.routes')); // tarefas
-
-
 
 module.exports = app;

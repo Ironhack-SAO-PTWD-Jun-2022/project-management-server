@@ -14,8 +14,7 @@ router.post('/', async (req, res, next) => {
     const projectFromDB = await Project.create({ title, description });
     res.status(200).json(projectFromDB);
   } catch (error) {
-    console.error('Error trying to create project.', error);
-    res.status(500).json(error);
+    next(error);
   }
 })
 
@@ -24,9 +23,8 @@ router.get('/', async (req, res, next) => {
   try {
     const projectsFromDB = await Project.find();
     res.status(200).json(projectsFromDB);
-  } catch (error) {
-    console.error('Error trying to get projects.', error);
-    res.status(500).json(error);
+  } catch (error) {    
+    next(error);
   }
 })
 
@@ -44,11 +42,8 @@ router.get('/:projectId', async (req, res, next) => {
     }
     const projectFromDB = await Project.findById(projectId).populate('tasks');
     res.status(200).json(projectFromDB);
-  } catch (error) {
-    console.error('Error trying to get a project.', error);
-    // caso exista error.status, mostra o próprio, se não, usa o 500.
-    // caso exista error.message, mostra o próprio, se não, usa o erro todo.
-    res.status(error.status || 500).json(error.message || error);
+  } catch (error) {    
+    next(error);
   }
 });
 
@@ -64,8 +59,7 @@ router.put('/:projectId', async (req, res, next) => {
     const projectFromDB = await Project.findByIdAndUpdate(projectId, req.body, { new: true });
     res.status(200).json(projectFromDB);
   } catch (error) {
-    console.error('Error trying to get a project.', error);
-    res.status(error.status || 500).json(error.message || error);
+    next(error);
   }
 })
 
@@ -81,8 +75,7 @@ router.delete('/:projectId', async (req, res, next) => {
     const projectFromDB = await Project.findByIdAndRemove(projectId);
     res.status(204).json();
   } catch (error) {
-    console.error('Error trying to delete a project.', error);
-    res.status(error.status || 500).json(error.message || error);
+    next(error);
   }
 })
 

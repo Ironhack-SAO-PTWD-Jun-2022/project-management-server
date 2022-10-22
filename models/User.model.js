@@ -13,6 +13,7 @@ const userSchema = new Schema({
     unique: true,
     lowercase: true,
     trim: true,
+    match: [/^\S+@\S+\.\S+$/, 'insira formato de email válido.']
   },
   passwordHash: {
     type: String,

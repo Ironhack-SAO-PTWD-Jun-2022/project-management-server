@@ -17,7 +17,8 @@ const { isAuthenticated } = require('./middlewares/jwt.middleware');
 
 // rotas
 // const projectRoutes = require('./routes/project.routes')
-app.use('/auth', require('./routes/auth.routes')) // autenticação
+app.use('/auth', require('./routes/auth.routes')); // autenticação
+app.use('/users', isAuthenticated, require('./routes/user.routes')); // usuário
 app.use('/projects', isAuthenticated, require('./routes/project.routes')); // projetos
 app.use('/tasks', isAuthenticated, require('./routes/task.routes')); // tarefas
 

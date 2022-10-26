@@ -19,6 +19,7 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'campo passwordHash é obrigatório'],
   },
+  profileImageUrl: String,
 }, { timestamps: true });
 
 module.exports = model('User', userSchema);
